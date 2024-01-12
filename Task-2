@@ -1,0 +1,120 @@
+<html>
+<head>
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="Tac.css">
+    
+</head>
+<body>
+    <h1>Tic-Tac-Toe</h1>
+    <div id="board"></div>
+    <div id="result"></div>
+    <script src="Toe.js"></script>
+</body>
+</html>
+
+--------------------css------------------------
+
+body 
+{
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    margin-top: 50px;
+}
+#board 
+{
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
+}
+.cell 
+{
+    width: 100px;
+    height: 100px;
+    border: 2px solid #000;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.cell:hover 
+{
+    background-color: #f4f4f4;
+}
+#result 
+{
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+
+--------------------JAVASCRIPT------------------------
+
+
+const board = document.getElementById('board');
+const result = document.getElementById('result');
+let currentPlayer = 'X';
+let cells = ['', '', '', '', '', '', '', '', ''];
+let game = true;
+
+function createBoard() 
+{
+    for (let i = 0; i < 9; i++) 
+    {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.dataset.index = i;
+        cell.addEventListener('click', gridClick);
+        board.appendChild(cell);
+    }
+}
+createBoard();
+
+function gridClick(event) 
+{
+    const index = event.target.getAttribute('data-index');
+
+    if (cells[index] == '' && game) 
+    {
+        cells[index] = currentPlayer;
+        event.target.textContent = currentPlayer;
+        Winner();
+        currentPlayer = currentPlayer == 'X' ? 'O' : 'X';
+    }
+}
+
+function Winner() 
+{
+    const Win = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+
+    for (const i of Win) 
+    {
+        const [a, b, c] = i;
+        if (cells[a] && cells[a] == cells[b] && cells[a] == cells[c]) 
+        {
+            game = false;
+            result.textContent = `Player ${currentPlayer} wins!`;
+            return;
+        }
+    
+    if (!cells.includes('')) 
+    {
+        game = false;
+        result.textContent = 'DRAW';
+    }
+    }
+}
+
+
+
