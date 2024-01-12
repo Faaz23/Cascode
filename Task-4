@@ -1,0 +1,228 @@
+<html>
+<head>
+    <title>BMI CALCULATOR</title>
+    <link rel="stylesheet" href="Bmi.css">
+    <script src="Bmi.js"></script>
+    
+</head>
+<body>
+    
+    <div class="box">
+        <h1>BMI Calculator</h1>
+        <label for="Age" class="fo">Age:</label>
+        <input type="number" class="lab" id="lo"><br><br>
+        <label for="Gender" class="fo">Gender:</label>
+        <input type="Radio" class="radz" name="Gender" value="Male"><label for="Male" class="fo1">Male</label>
+        <input type="Radio" class="radz" name="Gender" value="Female"><label for="Female" class="fo1">Female</label><br><br>
+        <label for="height" class="fo" id="hei">Height:</label>
+        <input type="number" class="lab" id="heightInput">
+        <select id="heightUnit">
+            <option value="cm">cm</option>
+            <option value="m">m</option>
+            <option value="ft">ft</option>
+        </select><br><br>
+        <label for="weight" class="fo" id="weightLabel">Weight:</label>
+        <input type="number" class="lab" id="weightInput">
+        <select id="weightUnit">
+            <option value="kg">kg</option>
+            <option value="lbs">lbs</option>
+        </select><br><br>
+        <input type="reset" value="Reset" id="cal1" onclick="cle()">
+        <input type="button" value="Calculate" onclick="BMI()" id="cal">
+    </div>
+</body>
+</html>
+
+
+--------------------------------------CSS--------------------------------------
+
+
+body
+{
+    margin-top: 20px;
+    font-size:x-large;
+    display: flex;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    justify-content: center;
+    align-items: center;
+}
+h1
+{
+    color:rgb(103, 82, 171);
+}
+.box
+{
+    display: flex;
+    display: inline-block;
+    border: 8px groove rgb(155, 135, 222);
+    padding:90px 100px;
+    border-radius: 10px;
+}
+.fo
+{
+    color:rgb(155, 135, 222);
+    margin-left: 0px;
+}
+.fo1
+{
+    color:rgb(100, 78, 171);
+    cursor: pointer;
+}
+.lab
+{
+    
+    display:inline-block;
+    border:3px groove;
+    border-radius:10px;
+    padding:8px;
+    justify-content: center;
+    align-items: center;
+    border-color:rgb(155, 135, 222); ;
+    margin-left:9px ;
+    font-size: medium;
+    color:rgb(66, 48, 128);
+    font-weight: 700;
+}
+#lo
+{
+    margin-left:38px;
+}
+.radz
+{
+    margin-left: 22px;
+}
+#cal
+{
+    display: inline-block;
+    border:5px groove rgb(144, 27, 253);
+    padding:10px 15px;
+    border-radius: 16px;
+    color:rgb(103, 82, 171);
+    font-weight: 900;
+    cursor: pointer;
+    margin-left: 80px;
+    font-size: medium;
+}
+#cal:hover
+{
+    background-color:rgb(155, 135, 222); 
+    color:white;
+}
+#cal1
+{
+    display: inline-block;
+    border:5px groove rgb(144, 27, 253);
+    padding:10px 27px;
+    border-radius: 16px;
+    color:rgb(103, 82, 171);
+    font-weight: 900;
+    cursor: pointer;
+    font-size: medium;
+    margin-left: 10px;
+}
+#cal1:hover
+{
+    background-color:rgb(155, 135, 222); 
+    color:white;
+}
+#weightUnit
+{
+    display: inline-block;
+    border:3px solid rgb(34, 7, 124); 
+    border-radius:8px;
+    padding:7px 3px;
+    font-size: medium;
+    font-weight:500;
+}
+#weightUnit:hover
+{
+    background-color:rgb(155, 135, 222); 
+    color:white;
+    cursor: pointer;
+}
+#heightUnit
+{
+    display: inline-block;
+    border:3px solid rgb(34, 7, 124); 
+    border-radius:8px;
+    padding:7px 3px;
+    font-size: medium;
+    font-weight:500;
+}
+#heightUnit:hover
+{
+    background-color:rgb(155, 135, 222); 
+    color:white;
+    cursor: pointer;
+}
+#hei
+{
+    margin-left: 4px;
+}
+
+
+--------------------------------------JAVASCRIPT--------------------------------------
+
+
+
+function BMI() 
+{
+    var w = parseFloat(document.getElementById("weightInput").value);
+    var h = parseFloat(document.getElementById("heightInput").value);
+    var weightUnit = document.getElementById("weightUnit").value;
+    var heightUnit = document.getElementById("heightUnit").value;
+
+    if (heightUnit == "ft") 
+    {
+        h *= 30.48;
+    } 
+    else if (heightUnit == "m") 
+    {
+        h *= 100;
+    }
+    if (weightUnit == "lbs") 
+    {
+        w *= 0.453592;
+    }
+    var heightInMeters = h / 100;
+    var hh = heightInMeters * heightInMeters;
+    var bmi = w / hh;
+
+    if (bmi >= 40) 
+    {
+        window.alert("Obese - Need to reduce weight");
+    } else if (bmi >= 35) 
+    {
+        window.alert("Obesity in border - At risk of reaching obese");
+    } else if (bmi>30 || bmi<35) 
+    {
+        window.alert("Approaching obese - Be careful");
+    } else if (bmi>25 || bmi<30) 
+    {
+        window.alert("Overweight");
+    } else if (bmi >18.5 || bmi<25) 
+    {
+        window.alert("Normal");
+    } else if (bmi >17 || bmi<18.5) 
+    {
+        window.alert("Mild thinness");
+    } else if (bmi>16 || bmi<17) 
+    {
+        window.alert("Moderate thinness");
+    } else if (bmi < 16) 
+    {
+        window.alert("Severe thinness -Eat!");
+    } else 
+    {
+        window.alert("Invalid input. Please enter valid values for height and weight.");
+    }
+}
+function cle()
+{
+    document.getElementById("heightUnit").value="";
+    document.getElementById("weightUnit").value="";
+    document.getElementById("heightInput").value="";
+    document.getElementById("weightInput").value="";
+    document.getElementById("lo").value="";
+}
+
